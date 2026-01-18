@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+    <a href="/" class="back">← Return to Home</a>
+
+    <h1>All Users</h1>
+
+    <div class="container">
+        <% if(users.length>0){%>     <% users.forEach(item => { %>
+            <div class="card">
+                <img src="<%= item.image %>" alt="<%= item.name %>">
+                <h><%= item.name %></h>
+                <p><%= item.email %>hhh</p>
+                <div>
+                    <a href="/delete/<%= item._id %>">Delete</a>
+                </div>
+            </div>
+         
+        <% }) %> <%}  else {%>
+        <p style="text-align:center; color:red;">
+      No user is available
+    </p>
+       <% } %>
+
+      
+   
+        
+    </div>
+
+</body>
+</html>

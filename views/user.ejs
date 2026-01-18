@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+</head>
+<body>
+
+<h1>Product List</h1>
+
+<table border="1" cellpadding="10">
+    <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price (Regular)</th>
+        <th>Description</th>
+    </tr>
+
+    <% user.forEach(item => { %>
+        <tr>
+            <td>
+                <img src="<%= item.img %>" alt="<%= item.name %>" width="250" height="250">
+            </td>
+            <td><%= item.name %></td>
+            <td><%= item.category %></td>
+            <td><%= item.options.regular %></td>
+            <td><%= item.description %></td>
+        </tr>
+    <% }) %>
+
+</table>
+
+</body>
+</html>
