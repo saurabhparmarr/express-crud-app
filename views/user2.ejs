@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title><%= user ? "Update User" : "Create User" %></title>
 </head>
 <body>
 
-    <a href = "/read" >Read user</a>
-    <h1>Create User</h1>
-    <form action ='/create' method="POST">
-    <input type="text" name="name" placeholder="write your name">
-        <input type="email" name="email" placeholder="write your email">
-            <input type="text" name="image" placeholder="paste image link here ">
-            <button >Create Image</button></form>
+<a href="/read">Read Users</a>
+<h1><%= user ? "Update User" : "Create User" %></h1>
+
+<form action="<%= user ? `/update/${user._id}` : '/create' %>" method="POST">
+    <input type="text" name="name" placeholder="Write your name" value="<%= user ? user.name : '' %>" required>
+    <input type="email" name="email" placeholder="Write your email" value="<%= user ? user.email : '' %>" required>
+    <input type="text" name="image" placeholder="Paste image link here" value="<%= user ? user.image : '' %>">
+    <button type="submit"><%= user ? "Update User" : "Create User" %></button>
+</form>
+
 </body>
 </html>

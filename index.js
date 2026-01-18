@@ -230,15 +230,14 @@ app.get("/read", async (req, res) => {
 });
 
 
-app.post("/create" ,async  (req,res)=> {
-  let {name , email , image} = req.body
-  let createdUser = await userModel.create({
-    name,
-    email,
-    image
-  })
+app.post("/create", async (req, res) => {
+  const { name, email, image } = req.body;
+  await userModel.create({ name, email, image });
   res.redirect("/read");
-})
+});
+
+
+
 
 app.get("/delete/:id" , async  (req,res)=>{
   
@@ -247,6 +246,19 @@ app.get("/delete/:id" , async  (req,res)=>{
 
   res.redirect("/read")
 })
+
+app.get("/edit/:id", async (req, res) => {
+  const user = await userModel.findById(req.params.id);
+  res.render("user2", { user }); // send user to template
+});
+app.post("/update/:id", async (req, res) => {
+  const { name, email, image } = req.body;
+  await userModel.findByIdAndUpdate(req.params.id, { name, email, image });
+  res.redirect("/read");
+});
+
+
+
 app.listen(3000 , ()=>{
   console.log("Server is running on http://localhost:3000");
 })

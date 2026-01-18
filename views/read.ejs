@@ -13,13 +13,14 @@
     <h1>All Users</h1>
 
     <div class="container">
-        <% if(users.length>0){%>     <% users.forEach(item => { %>
+        <% if(users.length>0){%>     <% users.forEach(user => { %>
             <div class="card">
-                <img src="<%= item.image %>" alt="<%= item.name %>">
-                <h><%= item.name %></h>
-                <p><%= item.email %>hhh</p>
+                <img src="<%= user.image %>" alt="<%= user.name %>">
+                <h><%= user.name %></h>
+                <p><%= user.email %>hhh</p>
                 <div>
-                    <a href="/delete/<%= item._id %>">Delete</a>
+                    <a href="/edit/<%= user._id %>">Update</a>
+                    <a href="/delete/<%= user._id %>">Delete</a>
                 </div>
             </div>
          
