@@ -4,7 +4,6 @@
 // import { dirname, join } from "path";
 // import morgan from "morgan";
 
-
 // const __filename = fileURLToPath(import.meta.url);
 // const __dirname = dirname(__filename);
 
@@ -36,7 +35,6 @@
 //   console.log("Server running on http://localhost:3000");
 // });
 
-
 // MVC ARCHITECTURE
 // import express from "express";
 // import { handleUser } from "./controller/usercontroller.js";
@@ -47,14 +45,6 @@
 // )
 
 // app.listen(3000);
-
-
-
-
-
-
-
-
 
 // DYNAMIC ROUTES
 // import express from "express";
@@ -77,10 +67,6 @@
 //   console.log("Server is running on http://localhost:3000");
 // });
 
-
-
-
-
 // Get user by ID
 
 // import express from "express";
@@ -88,11 +74,9 @@
 
 // const app = express();
 
-
 // app.get("/", (req, res) => {
 //   res.json(userData);
 // });
-
 
 // app.get("/user/:id", (req, res) => {
 //   const id = Number(req.params.id);
@@ -105,7 +89,6 @@
 
 //   res.json(user);
 // });
-
 
 // app.get("/user/name/:name", (req, res) => {
 //   const name = req.params.name.toLowerCase();
@@ -125,7 +108,6 @@
 //   console.log("Server is running on http://localhost:3000");
 // });
 
-
 // import express from "express";
 // import { MongoClient } from "mongodb";
 // const dbName = "students";
@@ -133,19 +115,16 @@
 
 // const client = new MongoClient("mongodb://localhost:27017");
 
-
-
 // const app = express();
 // app.set('view engine','ejs')
- 
+
 // app.get("/", async (req, res) => {
 //    await client.connect();
 //   const db = client.db(dbName);
 //   const schoolsCollection = db.collection("students");
 //   const user = await schoolsCollection.find({}).toArray();
- 
-//   res.render('user',{user})
 
+//   res.render('user',{user})
 
 // });
 
@@ -153,13 +132,12 @@
 //   console.log("Server is running on http://localhost:3000");
 // });
 
-
 // import express from "express";
 // import { MongoClient } from "mongodb";
 // const url = "mongodb://localhost:27017";
 // const client = new MongoClient("mongodb://localhost:27017");
 // const dbName = 'foodstack'
-// let db; 
+// let db;
 
 // const app = express();
 // app.set('view engine','ejs')
@@ -167,16 +145,15 @@
 //    db = connection.db(dbName)
 // })
 // app.get("/api", async (req, res) => {
-   
- 
+
 //   const schoolsCollection = db.collection("products");
-//   const user = await schoolsCollection.find({}).toArray();    
+//   const user = await schoolsCollection.find({}).toArray();
 //   res.send(user);
 // });
 
 // app.get("/" , async (req,resp)=>{
 //   const schoolsCollection = db.collection("products");
-//   const user = await schoolsCollection.find({}).toArray();    
+//   const user = await schoolsCollection.find({}).toArray();
 //   resp.render('user', {user});
 // })
 
@@ -190,9 +167,9 @@
 // app.use(express.urlencoded({extended:true}))
 
 // app.post("/save",async (req,resp)=>{
-  
+
 //   const schoolsCollection = db.collection("products");
-//   const user = await schoolsCollection.insertOne(req.body);    
+//   const user = await schoolsCollection.insertOne(req.body);
 //   resp.redirect('/')
 
 // })
@@ -201,34 +178,28 @@
 // }
 // );
 
-
-
-
 import express from "express";
 
-import path from "path"
+import path from "path";
 import { fileURLToPath } from "url";
 import userModel from "./model/user.js";
 
-const app = express()
-app.set("view engine","ejs");
-app.use(express.json())
-app.use(express.urlencoded({extended:true}))
+const app = express();
+app.set("view engine", "ejs");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-app.use(express.static(path.join(__dirname,"public")))
+app.use(express.static(path.join(__dirname, "public")));
 
-
-app.get("/" , (req,res)=>{
-  res.render("user2")
-})
-
-app.get("/read", async (req, res) => {
-  
-  let  users = await userModel.find(); 
-  res.render("read", { users }); 
+app.get("/", (req, res) => {
+  res.render("user2");
 });
 
+app.get("/read", async (req, res) => {
+  let users = await userModel.find();
+  res.render("read", { users });
+});
 
 app.post("/create", async (req, res) => {
   const { name, email, image } = req.body;
@@ -236,20 +207,9 @@ app.post("/create", async (req, res) => {
   res.redirect("/read");
 });
 
-
-
-
-app.get("/delete/:id" , async  (req,res)=>{
-  
-  let  users = await userModel.findOneAndDelete({_id: req.params.id}); 
-
-
-  res.redirect("/read")
-})
-
 app.get("/edit/:id", async (req, res) => {
   const user = await userModel.findById(req.params.id);
-  res.render("user2", { user }); // send user to template
+  res.render("user2", { user });
 });
 app.post("/update/:id", async (req, res) => {
   const { name, email, image } = req.body;
@@ -257,8 +217,12 @@ app.post("/update/:id", async (req, res) => {
   res.redirect("/read");
 });
 
+app.get("/delete/:id", async (req, res) => {
+  let users = await userModel.findOneAndDelete({ _id: req.params.id });
 
+  res.redirect("/read");
+});
 
-app.listen(3000 , ()=>{
+app.listen(3000, () => {
   console.log("Server is running on http://localhost:3000");
-})
+});
